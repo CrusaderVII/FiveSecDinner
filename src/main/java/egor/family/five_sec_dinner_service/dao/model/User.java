@@ -3,6 +3,7 @@ package egor.family.five_sec_dinner_service.dao.model;
 import egor.family.five_sec_dinner_service.dto.UserDTO;
 import egor.family.five_sec_dinner_service.dto.creation.UserCreationDTO;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -12,6 +13,7 @@ import java.util.UUID;
 @Table(name = "users")
 @Data
 @NoArgsConstructor
+@AllArgsConstructor
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
