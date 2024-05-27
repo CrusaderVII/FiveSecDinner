@@ -13,24 +13,26 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
 
+    //TODO: return user not optional
+
     private final UserRepository repository;
 
     @Override
     public Optional<User> findUserDyId(UUID id) {
-        return Optional.empty();
+        return repository.findById(id);
     }
     @Override
     public User saveUser(User user) {
-        return null;
+        return repository.save(user);
     }
 
     @Override
     public void deleteUserById(UUID id) {
-
+        repository.deleteById(id);
     }
 
     @Override
     public User updateUser(User user) {
-        return null;
+        return repository.save(user);
     }
 }
