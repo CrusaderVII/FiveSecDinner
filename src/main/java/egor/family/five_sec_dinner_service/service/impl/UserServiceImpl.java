@@ -3,6 +3,7 @@ package egor.family.five_sec_dinner_service.service.impl;
 import egor.family.five_sec_dinner_service.dao.model.User;
 import egor.family.five_sec_dinner_service.repository.UserRepository;
 import egor.family.five_sec_dinner_service.service.UserService;
+import egor.family.five_sec_dinner_service.util.exception.NoSuchUserException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -13,13 +14,12 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
 
-    //TODO: return user not optional
-
     private final UserRepository repository;
 
     @Override
-    public Optional<User> findUserDyId(UUID id) {
-        return repository.findById(id);
+    public User findUserDyId(UUID id) throws NoSuchUserException{
+        return repository.findById(id)
+                .orElseThrow(() -> new NoSuchUserException("with id:"+id));
     }
     @Override
     public User saveUser(User user) {

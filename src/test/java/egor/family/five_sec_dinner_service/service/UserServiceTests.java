@@ -4,6 +4,7 @@ import egor.family.five_sec_dinner_service.dao.model.Role;
 import egor.family.five_sec_dinner_service.dao.model.User;
 import egor.family.five_sec_dinner_service.repository.UserRepository;
 import egor.family.five_sec_dinner_service.service.impl.UserServiceImpl;
+import egor.family.five_sec_dinner_service.util.exception.NoSuchDataException;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -15,6 +16,7 @@ import java.util.Optional;
 import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.when;
 
 @SpringBootTest
@@ -41,8 +43,17 @@ public class UserServiceTests {
         when(repository.findById(id)).thenReturn(Optional.of(expectedUser));
 
         //Then
-        User testedUser = service.findUserDyId(id).orElse(new User());
+        User testedUser = service.findUserDyId(id);
         assertEquals(expectedUser, testedUser);
+    }
+
+    @Test
+    void givenUserId_idNotExists_shouldThrowNoSuchUserException() {
+        //Given
+        UUID id = UUID.fromString("9979cf26-e4bd-496e-a76e-24d18a815766");
+
+        //Then
+        assertThrows(NoSuchDataException.class, ()->service.findUserDyId(id));
     }
 
     @Test

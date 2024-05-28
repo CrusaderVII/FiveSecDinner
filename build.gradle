@@ -1,5 +1,6 @@
 plugins {
 	id 'java'
+	id 'jacoco'
 	id 'org.springframework.boot' version '3.3.0'
 	id 'io.spring.dependency-management' version '1.1.5'
 	id "org.sonarqube" version "5.0.0.4638"
@@ -10,6 +11,27 @@ version = '0.0.1-SNAPSHOT'
 
 java {
 	sourceCompatibility = '17'
+}
+
+jacoco {
+	toolVersion = "0.8.8"
+}
+
+jacocoTestReport {
+	reports {
+		xml.required = true
+		xml.destination file("/build/jacoco/jacoco.xml")
+	}
+}
+
+sonar {
+	properties {
+		property "sonar.projectKey", "FiveSecDinner"
+		property "sonar.token", "sqp_ab2aac7becf6b2326e5b22ba8978c22da2cdad27"
+		property "sonar.java.coveragePlugin", "jacoco"
+		property "sonar.host.url", "http://localhost:9000"
+		property "sonar.coverage.jacoco.xmlReportPath", "/build/jacoco/jacoco.xml"
+	}
 }
 
 configurations {

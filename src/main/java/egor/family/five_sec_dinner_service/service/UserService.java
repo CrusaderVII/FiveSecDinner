@@ -9,7 +9,7 @@ import java.util.UUID;
 @Service
 public interface UserService {
 
-    Optional<User> findUserDyId(UUID id);
+    User findUserDyId(UUID id);
     User saveUser(User user);
     void deleteUserById(UUID id);
     User updateUser(User user);
